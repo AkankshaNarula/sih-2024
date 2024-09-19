@@ -110,6 +110,7 @@ const Speedometer = () => {
           display: flex;
           flex-direction: column;
           z-index: 999;
+          overflow: hidden; /* Hide overflow */
         }
         .close-button {
           align-self: flex-end;
@@ -122,6 +123,8 @@ const Speedometer = () => {
           --df-messenger-chat-background: #f3f6fc;
           --df-messenger-message-user-background: #d3e3fd;
           --df-messenger-message-bot-background: #fff;
+          height: calc(100% - 40px); /* Adjust height to account for close button */
+          overflow-y: auto; /* Enable vertical scrolling */
         }
       `}</style>
     </div>
