@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactSpeedometer from "react-d3-speedometer";
-import { Card, CardHeader, CardBody, Button } from "@nextui-org/react";
+import { Card, CardBody, Button } from "@nextui-org/react";
 
 declare global {
   namespace JSX {
@@ -20,16 +20,34 @@ declare global {
 
 const Speedometer = () => {
   const [showChatbot, setShowChatbot] = useState(false);
+  const [speedometerValue, setSpeedometerValue] = useState(100);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const storedFiles = JSON.parse(localStorage.getItem("uploadedFiles") || "[]");
+      if (storedFiles.length > 0) {
+        setSpeedometerValue(70);
+        setTimeout(() => {
+          setSpeedometerValue(100);
+        }, 3000);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    handleStorageChange();
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   useEffect(() => {
     if (showChatbot) {
-      // Load the script
       const script = document.createElement('script');
       script.src = "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js";
       script.async = true;
       document.body.appendChild(script);
 
-      // Load the CSS
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = 'https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css';
@@ -63,7 +81,7 @@ const Speedometer = () => {
             height={200}
             width={350}
             maxValue={100}
-            value={70}
+            value={speedometerValue}
             needleColor="red"
             startColor="green"
             segments={10}
@@ -110,7 +128,7 @@ const Speedometer = () => {
           display: flex;
           flex-direction: column;
           z-index: 999;
-          overflow: hidden; /* Hide overflow */
+          overflow: hidden;
         }
         .close-button {
           align-self: flex-end;
@@ -123,8 +141,8 @@ const Speedometer = () => {
           --df-messenger-chat-background: #f3f6fc;
           --df-messenger-message-user-background: #d3e3fd;
           --df-messenger-message-bot-background: #fff;
-          height: calc(100% - 40px); /* Adjust height to account for close button */
-          overflow-y: auto; /* Enable vertical scrolling */
+          height: calc(100% - 40px);
+          overflow-y: auto;
         }
       `}</style>
     </div>
