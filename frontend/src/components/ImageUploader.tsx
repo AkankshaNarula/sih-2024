@@ -1,6 +1,7 @@
 'use client';
+
 import { useState, ChangeEvent } from 'react';
-import Image from 'next/image';
+import { Button, Input } from '@nextui-org/react';
 
 export default function ImageUploader() {
   const [image, setImage] = useState<string | null>(null);
@@ -55,25 +56,26 @@ export default function ImageUploader() {
   };
 
   return (
-    <div className="w-full max-w-md">
-      <input
+    <div className="w-full max-w-md mx-auto p-4"> {/* Centering and padding */}
+      <Input
         type="file"
         accept="image/*"
         onChange={handleImageUpload}
         className="mb-4"
+        isClearable
       />
       {image && (
         <div className="mb-4">
-          <Image src={image} alt="Uploaded" width={300} height={300} />
+          <img src={image} alt="Uploaded" style={{ width: '300px', height: '300px' }} />
         </div>
       )}
-      <button
+      <Button
         onClick={analyzeImage}
         disabled={!image || loading}
         className="bg-blue-500 text-white px-4 py-2 rounded disabled:bg-gray-300"
       >
         {loading ? 'Analyzing...' : 'Analyze Image'}
-      </button>
+      </Button>
       {error && (
         <div className="mt-4 text-red-500">
           Error: {error}

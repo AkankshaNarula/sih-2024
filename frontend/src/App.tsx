@@ -8,6 +8,7 @@ import Dash_Home from "./components/Dash_home";
 import Summarizer from "./components/Summarizer.tsx";
 import { AuthProvider } from "./components/AuthProvider";
 import OTPInput from "./components/OTPInput";
+import ImageUploaderHome from "./ImageUploaderHome.tsx";
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const App: React.FC = () => {
             <Route path="/home" element={<Home />} />
             <Route path="/Dash_home" element={<Dash_Home />} />
             <Route path="/summarizer" element={<Summarizer />} />
+            <Route path="/image" element={<ImageUploaderHome />} />
             <Route path="*" element={<Login />} /> {/* Fallback route for unknown paths */}
             {/* Fallback to MinistryHome if the route is unknown */}
             <Route path="*" element={<Navigate to="/" />} />
