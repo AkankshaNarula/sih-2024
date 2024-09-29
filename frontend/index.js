@@ -7,6 +7,7 @@ import Register from "./src/components/auth/register";
 import Header from "./src/components/header";
 import Home from "./src/components/home/index";
 import Dash_Home from "./src/components/Dash_home";
+import Summarizer from "./src/components/Summarizer"
 import { AuthProvider } from "./contexts/authContext";
 import { useRoutes } from "react-router-dom";
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -36,6 +37,10 @@ function App() {
     {
       path: "/Dash_home",
       element: <Dash_Home />,
+    },
+    {
+      path: "/summarizer",
+      element: <Summarizer></Summarizer>,
     },
   ];
   let routesElement = useRoutes(routesArray);

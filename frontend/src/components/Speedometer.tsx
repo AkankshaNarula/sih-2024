@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactSpeedometer from "react-d3-speedometer";
 import { Card, CardBody, Button } from "@nextui-org/react";
-
+import { useNavigate } from 'react-router-dom';
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -19,6 +19,7 @@ declare global {
 }
 
 const Speedometer = () => {
+  const navigate = useNavigate();
   const [showChatbot, setShowChatbot] = useState(false);
   const [speedometerValue, setSpeedometerValue] = useState(100);
 
@@ -91,7 +92,7 @@ const Speedometer = () => {
             <Button color="primary" className="font-bold min-w-36" onClick={handleChatbotClick}>
               Use Chatbot
             </Button>
-            <Button color="secondary" className="font-bold min-w-36">
+            <Button color="secondary" className="font-bold min-w-36" onClick={() => navigate('/summarizer')}>
               Use Summarize
             </Button>
           </div>

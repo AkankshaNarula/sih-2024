@@ -10,6 +10,8 @@ function Dash_Home() {
       <Ava />
       <Speedometer /> 
       <Upload />
+      <div>hello </div>
+      {/* <button  */}
     </>
   );
 }
