@@ -1,42 +1,33 @@
-import { Avatar } from "@nextui-org/react";
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-} from "@nextui-org/react";
+import React from 'react';
+import { Card, CardBody, Avatar as NextUIAvatar } from "@nextui-org/react";
 
-export default function Ava() {
+const Avatar = () => {
   return (
-    <div className="flex gap-4 justify-center items-center space-x-8 flex-col md:flex-row mt-16">
-      <Avatar
-        src="https://i.pravatar.cc/150?u=a04258114e29026708c"
-        className="w-32 h-32 text-large"
-      />
-      <div className="flex flex-col justify-center">
-        <Table hideHeader aria-label="Example static collection table">
-          <TableHeader>
-            <TableColumn>A</TableColumn>
-            <TableColumn>B</TableColumn>
-          </TableHeader>
-          <TableBody className="gap-y-12">
-            <TableRow key="1">
-              <TableCell className="bg-slate-200 font-bold">Name</TableCell>
-              <TableCell>Tony Reichert</TableCell>
-            </TableRow>
-            <TableRow key="2">
-              <TableCell className="bg-slate-200 font-bold">Email</TableCell>
-              <TableCell>tonyreichert@gmail.com</TableCell>
-            </TableRow>
-            <TableRow key="3">
-              <TableCell className="bg-slate-200 font-bold">Phone</TableCell>
-              <TableCell>7865925143</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </div>
-    </div>
+    <Card className="w-full h-full">
+      <CardBody className="flex flex-col items-center justify-center p-6">
+        <NextUIAvatar
+          src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+          className="w-32 h-32 text-large mb-6"
+        />
+        <h3 className="text-2xl font-semibold mb-4">John Doe</h3>
+        <p className="text-lg text-gray-600 mb-6">Software Developer</p>
+        <div className="w-full space-y-2">
+          <p className="text-sm text-gray-600 flex justify-between">
+            <span className="font-medium">Email:</span>
+            <span>john.doe@example.com</span>
+          </p>
+          <p className="text-sm text-gray-600 flex justify-between">
+            <span className="font-medium">Location:</span>
+            <span>New York, USA</span>
+          </p>
+          <p className="text-sm text-gray-600 flex justify-between">
+            <span className="font-medium">Member since:</span>
+            <span>January 2023</span>
+          </p>
+        </div>
+      </CardBody>
+    </Card>
   );
-}
+};
+
+export default Avatar;

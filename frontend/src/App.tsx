@@ -5,7 +5,7 @@ import Register from "./components/auth/register";
 import Header from "./components/header";
 import Home, { MinistryHome } from "./components/page.tsx";
 import Dash_Home from "./components/Dash_home";
-import Summarizer from "./components/summarizer";
+import Summarizer from "./components/Summarizer.tsx";
 import { AuthProvider } from "./components/AuthProvider";
 import OTPInput from "./components/OTPInput";
 

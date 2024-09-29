@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableHeader,
@@ -7,6 +7,8 @@ import {
   TableRow,
   TableCell,
   Button,
+  Card,
+  CardBody,
 } from "@nextui-org/react";
 
 interface FileRow {
@@ -72,62 +74,67 @@ export default function Upload() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-3 max-w-screen-xl mt-10 mx-auto">
-      <p className="text-2xl font-bold text-slate-700 mb-4">Uploaded Documents</p>
+    <Card className="w-full">
+      <CardBody>
+        <div className="flex flex-col items-center justify-center gap-6">
+          {rows.length > 0 ? (
+            <Table aria-label="Uploaded documents" className="min-w-full">
+              <TableHeader columns={columns}>
+                {(column) => (
+                  <TableColumn key={column.key} className="bg-gray-100 text-gray-700 font-semibold text-sm uppercase">
+                    {column.label}
+                  </TableColumn>
+                )}
+              </TableHeader>
+              <TableBody items={rows}>
+                {(item) => (
+                  <TableRow key={item.key} className="hover:bg-gray-50">
+                    <TableCell className="text-gray-700">{item.name}</TableCell>
+                    <TableCell>
+                      <Button
+                        color="primary"
+                        size="sm"
+                        onClick={() => handleDownload(item.name, item.content)}
+                      >
+                        Download
+                      </Button>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        color="danger"
+                        size="sm"
+                        variant="light"
+                        onClick={() => handleDelete(item.key)}
+                      >
+                        Delete
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          ) : (
+            <p className="text-xl text-gray-500">No documents uploaded yet</p>
+          )}
 
-      {rows.length > 0 ? (
-        <div className="w-full max-w-4xl">
-          <Table aria-label="Uploaded documents">
-            <TableHeader columns={columns}>
-              {(column) => (
-                <TableColumn className="font-bold text-lg" key={column.key}>
-                  {column.label}
-                </TableColumn>
-              )}
-            </TableHeader>
-            <TableBody items={rows}>
-              {(item) => (
-                <TableRow key={item.key}>
-                  <TableCell>{item.name}</TableCell>
-                  <TableCell>
-                    <Button
-                      color="primary"
-                      onClick={() => handleDownload(item.name, item.content)}
-                    >
-                      Download
-                    </Button>
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      color="danger"
-                      onClick={() => handleDelete(item.key)}
-                    >
-                      Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+          <input
+            type="file"
+            id="fileUpload"
+            style={{ display: "none" }}
+            onChange={handleFileUpload}
+          />
+
+          <Button
+            color="primary"
+            size="lg"
+            className="mt-4"
+            endContent={<span className="ml-2">+</span>}
+            onClick={() => document.getElementById("fileUpload")?.click()}
+          >
+            Upload New Document
+          </Button>
         </div>
-      ) : (
-        <p className="text-xl text-gray-500">There are no files to show</p>
-      )}
-
-      <input
-        type="file"
-        id="fileUpload"
-        style={{ display: "none" }}
-        onChange={handleFileUpload}
-      />
-
-      <Button
-        color="success"
-        className="mt-6 mb-6"
-        onClick={() => document.getElementById("fileUpload")?.click()}
-      >
-        Upload Documents
-      </Button>
-    </div>
+      </CardBody>
+    </Card>
   );
 }
