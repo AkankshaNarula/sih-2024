@@ -18,7 +18,7 @@ const Login: React.FC = () => {
             setIsSigningIn(true)
             try {
                 await doSignInWithEmailAndPassword(email, password)
-                navigate('/Dash_Home') // Redirect to /Dash_Home after successful login
+                navigate('/otp') // Redirect to /Dash_Home after successful login
             } catch (error) {
                 setErrorMessage('Failed to sign in with email and password')
                 setIsSigningIn(false)
@@ -32,7 +32,7 @@ const Login: React.FC = () => {
             setIsSigningIn(true)
             try {
                 await doSignInWithGoogle()
-                navigate('/Dash_Home') // Redirect to /Dash_Home after successful Google login
+                navigate('/otp') // Redirect to /Dash_Home after successful Google login
             } catch (error) {
                 setErrorMessage('Failed to sign in with Google')
                 setIsSigningIn(false)
