@@ -8,7 +8,7 @@ import jsPDF from "jspdf";
 
 function Dash_Home() {
   const [selectedLanguage, setSelectedLanguage] = useState("English");
-  const languages = ["English", "Spanish", "French", "German", "Chinese"];
+  const languages = ["English", "Hindi", "Punjabi", "Low Vision", "Marathi", "Gujrati", "Tamil" , "Telugu"];
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();

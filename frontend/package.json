@@ -1,14 +1,14 @@
 {
-  "name": "combined-react-project",
+  "name": "combined-react-next-app",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "vite",
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "start": "vite && next start",
+    "dev": "vite && next dev",
+    "build": "tsc && vite build && next build",
     "test": "vite test",
-    "lint": "eslint -c .eslintrc.json ./src/**/**/*.{ts,tsx} --fix",
+    "lint": "eslint -c .eslintrc.json ./src/**/**/*.{ts,tsx} --fix && next lint",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -40,9 +40,13 @@
     "tailwind-variants": "0.1.20",
     "tailwindcss": "^3.4.3",
     "postcss": "^8.4.38",
-    "autoprefixer": "^10.4.19"
+    "autoprefixer": "^10.4.19",
+    "groq": "^3.58.0",
+    "groq-sdk": "^0.7.0",
+    "next": "14.2.13"
   },
   "devDependencies": {
+    "@types/node": "^20",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
@@ -59,12 +63,15 @@
     "eslint-plugin-unused-imports": "^3.2.0",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
-    "vite-tsconfig-paths": "^4.3.2"
+    "vite-tsconfig-paths": "^4.3.2",
+    "eslint-config-next": "14.2.13",
+    "tailwindcss": "^3.4.1"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "next/core-web-vitals"
     ]
   },
   "browserslist": {
