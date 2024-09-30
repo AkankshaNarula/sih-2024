@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigate for React Router v6
-import ReactSpeedometer, { CustomSegmentLabelPosition } from "react-d3-speedometer";
+import ReactSpeedometer from "react-d3-speedometer";
 import { Card, CardBody, Button } from "@nextui-org/react";
+import { CustomSegmentLabelPosition } from 'react-d3-speedometer';
 import { saveAs } from 'file-saver';
+import { useNavigate } from 'react-router-dom';
 
-// Import your custom icons if needed
+// ... existing imports ...
 
 declare global {
   namespace JSX {
@@ -25,7 +26,7 @@ declare global {
 const Speedometer = () => {
   const [speedometerValue, setSpeedometerValue] = useState(100);
   const [showChatbot, setShowChatbot] = useState(false);
-  const navigate = useNavigate(); // useNavigate for React Router v6
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -55,6 +56,8 @@ const Speedometer = () => {
   }, []);
 
   useEffect(() => {
+    // ... existing chatbot initialization code ...
+
     if (showChatbot) {
       const script = document.createElement('script');
       script.src = "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js";
@@ -68,6 +71,7 @@ const Speedometer = () => {
           dfMessenger.setAttribute('max-query-length', '-1');
           document.body.appendChild(dfMessenger);
 
+          // Add CSS and create download button
           const style = document.createElement('style');
           style.textContent = `
             df-messenger {
@@ -88,6 +92,7 @@ const Speedometer = () => {
           `;
           document.head.appendChild(style);
 
+          // Create and add the download button
           const addDownloadButton = () => {
             const chatHeader = dfMessenger.shadowRoot?.querySelector('df-messenger-chat')?.shadowRoot?.querySelector('.chat-header');
             if (chatHeader && !chatHeader.querySelector('.download-button')) {
@@ -100,6 +105,7 @@ const Speedometer = () => {
             }
           };
 
+          // Use MutationObserver to detect when the chatbot is fully loaded
           const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
               if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
@@ -135,8 +141,16 @@ const Speedometer = () => {
     }
   }, [showChatbot, handleDownload]);
 
+  const handleUseChatbot = () => {
+    setShowChatbot(true);
+  };
+
+  const handleGenerateSummary = () => {
+    navigate('/summarizer');
+  };
+
   const handleImageAnalysis = () => {
-    navigate('/image'); // Navigate to "/image" route
+    navigate('/image');
   };
 
   return (
@@ -171,7 +185,7 @@ const Speedometer = () => {
             color="primary"
             size="lg"
             className="font-semibold"
-            onClick={() => setShowChatbot(true)}
+            onClick={handleUseChatbot}
             startContent={<ChatIcon />}
           >
             Start Chatbot Analysis
@@ -181,6 +195,7 @@ const Speedometer = () => {
             size="lg"
             className="font-semibold"
             startContent={<SummarizeIcon />}
+            onClick={handleGenerateSummary}
           >
             Generate Summary
           </Button>
@@ -188,8 +203,8 @@ const Speedometer = () => {
             color="success"
             size="lg"
             className="font-semibold"
-            onClick={handleImageAnalysis} // Attach handleImageAnalysis function here
             startContent={<ImageAnalysisIcon />}
+            onClick={handleImageAnalysis}
           >
             Analyze Images
           </Button>
@@ -207,13 +222,13 @@ const ChatIcon = () => (
 
 const SummarizeIcon = () => (
   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 3v2M15 3v2M7 10h10M7 14h8M7 18h6" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
   </svg>
 );
 
 const ImageAnalysisIcon = () => (
   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7h2m4 0h10M5 7v10a2 2 0 002 2h10a2 2 0 002-2V7M9 12h.01M15 12h.01M12 12h.01M9 16h6" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
   </svg>
 );
 

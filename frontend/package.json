@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.5",
     "@nextui-org/avatar": "^2.0.33",
     "@nextui-org/button": "2.0.38",
     "@nextui-org/code": "2.0.33",

@@ -15,7 +15,7 @@ export default function ImageUploaderLayout({
 }>) {
   return (
     <html lang="en">
-
+      <body className="antialiased">
         {children}
       </body>
     </html>
