@@ -15,7 +15,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No image provided' }, { status: 400 });
     }
 
-
     const groq = new Groq({ apiKey: GROQ_API_KEY });
 
     // Prepare the completion request to Groq API
@@ -26,7 +25,7 @@ export async function POST(req: NextRequest) {
           "content": [
             {
               "type": "text",
-              "text": textPrompt || "Describe what this equipment is and what is its use, if it is a machine explain how to use it "
+              "text": textPrompt || "Describe what this equipment is and what is its use, if it is a machine explain how to use it"
             },
             {
               "type": "image_url",

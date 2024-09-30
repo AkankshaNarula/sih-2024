@@ -5,6 +5,7 @@ import { Button, Input } from '@nextui-org/react';
 
 export default function ImageUploader() {
   const [image, setImage] = useState<string | null>(null);
+  const [textPrompt, setTextPrompt] = useState<string>(''); // Text prompt input
   const [analysis, setAnalysis] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -29,22 +30,25 @@ export default function ImageUploader() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/analyze', {
+      const response = await fetch('./api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ image }),
+        body: JSON.stringify({ image, textPrompt }), // Include the text prompt
       });
       
       const data = await response.json();
       
+      // Check if the response is OK
       if (!response.ok) {
         throw new Error(data.error || 'Failed to analyze image');
       }
       
+      // Validate the result format
       if (typeof data.result !== 'string') {
         throw new Error('Invalid response from server');
       }
 
+      // Set the analysis result
       setAnalysis(data.result);
     } catch (error) {
       console.error('Error analyzing image:', error);
@@ -64,6 +68,13 @@ export default function ImageUploader() {
         className="mb-4"
         isClearable
       />
+      <Input
+        type="text"
+        placeholder="Enter your prompt"
+        value={textPrompt}
+        onChange={(e) => setTextPrompt(e.target.value)}
+        className="mb-4"
+      />
       {image && (
         <div className="mb-4">
           <img src={image} alt="Uploaded" style={{ width: '300px', height: '300px' }} />
@@ -72,7 +83,7 @@ export default function ImageUploader() {
       <Button
         onClick={analyzeImage}
         disabled={!image || loading}
-        className="bg-blue-500 text-white px-4 py-2 rounded disabled:bg-gray-300"
+        className="bg-blue-500 text-white disabled:bg-gray-300"
       >
         {loading ? 'Analyzing...' : 'Analyze Image'}
       </Button>
@@ -90,3 +101,4 @@ export default function ImageUploader() {
     </div>
   );
 }
+
